@@ -1,0 +1,24 @@
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y libmagic-dev curl wget
+language: ruby
+bundler_args: --without development
+script: "bundle exec rake spec:ci"
+env:
+  global:
+    - "JRUBY_OPTS=-Xcext.enabled=true"
+rvm:
+  - 2.2.2
+  - 2.1.6
+  - 2.0.0
+  - 1.9.3
+  - rbx
+gemfile:
+  - Gemfile
+notifications:
+  recipients:
+    - ryanwong@live.ca
+matrix:
+  fast_finish: true
+  allow_failures:
+    - rvm: rbx
